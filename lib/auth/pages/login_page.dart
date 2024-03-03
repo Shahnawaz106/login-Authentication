@@ -2,8 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
+import 'package:login/auth/pages/forgot_pw.dart';
+
 class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  final VoidCallback showRegisterPage;
+  const LoginPage({Key? key,required this.showRegisterPage}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _LoginPageState();
@@ -96,6 +99,29 @@ void dispose() {
                   ),
                 ),
               ),
+
+              SizedBox(height: 10,),
+
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    GestureDetector(
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context){
+                          return ForgotPasswordPage();
+                        }));
+                      },
+                      child: Text('Forgot Password?',
+                                        style: TextStyle(
+                        color: Colors.blue, fontWeight: FontWeight.bold),
+                                      ),
+                    ),
+                  ],
+                ),
+              ),
+
               SizedBox(height: 10),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 25.0),
@@ -128,10 +154,13 @@ void dispose() {
                     'Not a member? ',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  Text(
-                    'Register now',
-                    style: TextStyle(
-                        color: Colors.blue, fontWeight: FontWeight.bold),
+                  GestureDetector(
+                    onTap: widget.showRegisterPage,
+                    child: Text(
+                      'Register now',
+                      style: TextStyle(
+                          color: Colors.blue, fontWeight: FontWeight.bold),
+                    ),
                   )
                 ],
               )
